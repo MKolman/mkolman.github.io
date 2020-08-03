@@ -72,16 +72,16 @@ not be playing when it's middle blocker's turn to serve.
 <div id="app">
 	<div id="above-court">
 	<select style="display: inline-block;" id="rotationTypeSelect" v-model="selection.type">
-		<option :value="index" v-for="(rotationType, index) in allRotations">${ rotationType.name }</option>
+		<option v-bind:value="index" v-for="(rotationType, index) in allRotations">${ rotationType.name }</option>
 	</select>
 	<h2 style="font-size: 2em; display: inline-block; margin-left: 0.2em;">system</h2>
 	<div style="display: none">
 		<select v-model="selection.rotation">
-			<option :value="index-1" v-for="index in 6">Rotation ${ index }</option>
+			<option v-bind:value="index-1" v-for="index in 6">Rotation ${ index }</option>
 		</select>
 		<select v-model="selection.gameState">
 			<option
-				:value="state"
+				v-bind:value="state"
 				v-for="(state, index) in allGameStates"
 			>${index+1}. ${state} </option>
 		</select>
@@ -126,15 +126,15 @@ not be playing when it's middle blocker's turn to serve.
 			alt="left"
 		/>
 		<!-- Players and ball -->
-		<div class="player" :class="{active: trackPlayer == index, notActive: trackPlayer != null && trackPlayer != index}" v-on:click="trackPlayer == index ? trackPlayer = null : trackPlayer = index" :style="getStyle(player)" v-for="(player, index) in getDisplayPlayers()">${ selection.haikyu ? '' : player.name}</div>
-		<div class="ball" :style="getStyle(ball)"></div>
+		<div class="player" v-bind:class="{active: trackPlayer == index, notActive: trackPlayer != null && trackPlayer != index}" v-on:click="trackPlayer == index ? trackPlayer = null : trackPlayer = index" v-bind:style="getStyle(player)" v-for="(player, index) in getDisplayPlayers()">${ selection.haikyu ? '' : player.name}</div>
+		<div class="ball" v-bind:style="getStyle(ball)"></div>
 		<!-- Position lines -->
-		<div class="position-limits" :style="line" v-for="line in trackedPlayerPositionLimits"></div>
+		<div class="position-limits" v-bind:style="line" v-for="line in trackedPlayerPositionLimits"></div>
 		<!-- Switches -->
 		<div
 			title="Use libero"
 			class="switch"
-			:class="{down: !selection.libero}"
+			v-bind:class="{down: !selection.libero}"
 			style="bottom: 30%"
 			v-on:click="selection.libero = !selection.libero"
 		>
@@ -146,7 +146,7 @@ not be playing when it's middle blocker's turn to serve.
 		<div
 			title="Use Haikyu skin"
 			class="switch"
-			:class="{down: selection.haikyu}"
+			v-bind:class="{down: selection.haikyu}"
 			style="bottom: 18%"
 			v-on:click="selection.haikyu = !selection.haikyu"
 		>
@@ -166,21 +166,21 @@ not be playing when it's middle blocker's turn to serve.
 	<!-- Navbars -->
 	<div class="navbar rotations">
 		<div
-			:class="{active: index-1 == selection.rotation}"
+			v-bind:class="{active: index-1 == selection.rotation}"
 			v-for="index in 6"
 			v-on:click="selection.rotation = index-1;"
 		>${index}</div>
 	</div>
 	<div class="navbar states">
 		<div
-			:class="{active: state.id == selection.gameState && selection.serve}"
+			v-bind:class="{active: state.id == selection.gameState && selection.serve}"
 			v-on:click="selection.gameState == state.id && selection.serve ? updatePlayers() : [selection.gameState, selection.serve] = [state.id, true]"
 			v-for="state in gameStatesFlow.serve"
 		>${ state.name }</div>
 	</div>
 	<div class="navbar states">
 		<div
-			:class="{active: state.id == selection.gameState && !selection.serve}"
+			v-bind:class="{active: state.id == selection.gameState && !selection.serve}"
 			v-on:click="selection.gameState == state.id && !selection.serve ? updatePlayers() : [selection.gameState, selection.serve] = [state.id, false]"
 			v-for="state in gameStatesFlow.receive"
 		>${ state.name }</div>
