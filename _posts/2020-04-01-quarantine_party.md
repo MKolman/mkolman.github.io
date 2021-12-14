@@ -59,16 +59,16 @@ This should be a straight forward process. Change your props and clothes and tak
 </style>
 <div class="photos">
 <video muted="" autoplay="" loop="">
-	<source src="{% link /assets/quarantine_party/guitar.mp4 %}"/>
+	<source src="{% link /assets/quarantine_party/guitar.mp4 %}" type="video/mp4"/>
 </video>
 <video muted="" autoplay="" loop="">
-	<source src="{% link /assets/quarantine_party/groupie.mp4 %}"/>
+	<source src="{% link /assets/quarantine_party/groupie.mp4 %}" type="video/mp4"/>
 </video>
 <video muted="" autoplay="" loop="">
-	<source src="{% link /assets/quarantine_party/drinker.mp4 %}"/>
+	<source src="{% link /assets/quarantine_party/drinker.mp4 %}" type="video/mp4"/>
 </video>
 <video muted="" autoplay="" loop="">
-	<source src="{% link /assets/quarantine_party/dancers.mp4 %}"/>
+	<source src="{% link /assets/quarantine_party/dancers.mp4 %}" type="video/mp4"/>
 </video>
 </div>
 
@@ -82,7 +82,7 @@ So you've shot all the photos and selected one favorite of every character. Now 
 [gimp]: https://gimp.org
 
 <video muted="" autoplay="" loop="">
-	<source src="{% link /assets/quarantine_party/making_of.mp4 %}"/>
+	<source src="{% link /assets/quarantine_party/making_of.mp4 %}" type="video/mp4"/>
 </video>
 
 Starting with the characters in the back stack all the photos into layers. Every time you add a new layer erase all parts of it that are covering the relevant parts on previous photos. Make sure to also include shadows and reflections of your characters, otherwise the whole scene is going to look off. Moreover you might want to add additional shadows where one character is covering up the source of light to another character.
@@ -112,10 +112,7 @@ That's it. You've successfully wasted a couple of hours in our meaningless journ
 
 <script>
 	function showhide(event) {
-		console.log(event);
-		console.log(event.target.value, event.target.checked);
 		let img = document.getElementById("img-layer-"+event.target.value);
-		console.log(img);
 		if (event.target.checked) {
 			img.style.display = "initial";
 		} else {
