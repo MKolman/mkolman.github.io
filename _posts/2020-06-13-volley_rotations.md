@@ -541,5 +541,5 @@ not be playing when it's middle blocker's turn to serve.
 	}
 
 </style>
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6/dist/vue.min.js"></script>
 <script src="{% link /assets/volley_rotations/draw_court.js %}"></script>
