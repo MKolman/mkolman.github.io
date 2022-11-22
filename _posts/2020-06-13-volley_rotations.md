@@ -88,6 +88,7 @@ not be playing when it's middle blocker's turn to serve.
 		<input type="checkbox" id="liberoCheckbox" v-model="selection.libero"/><label for="liberoCheckbox"> Libero </label>
 		<input type="checkbox" id="serveCheckbox" v-model="selection.serve"/><label for="serveCheckbox"> Serve </label>
 		<input type="checkbox" id="haikyuCheckbox" v-model="selection.haikyu"/><label for="haikyuCheckbox"> Haikyu </label>
+		<input type="checkbox" id="slovenianCheckbox" v-model="selection.slovenian"/><label for="slovenianCheckbox"> Language </label>
 	</div>
 	<p v-if="currentRotation.name == '5-1'">
 		The 5-1 rotation is played with one setter and 5 attackers. The setter is responsible for setting from both front and back row. Libero and both outside hitters are responsible for receiving serves in every rotation.
@@ -135,13 +136,25 @@ not be playing when it's middle blocker's turn to serve.
 			title="Use libero"
 			class="switch"
 			v-bind:class="{down: !selection.libero}"
-			style="bottom: 30%"
+			style="bottom: 42%"
 			v-on:click="selection.libero = !selection.libero"
 		>
 			<label>${["Middle ", "Libero"][+selection.libero]}</label>
 			<span class="flip"></span>
 			<span class="top">L</span>
 			<span class="bottom">M</span>
+		</div>
+		<div
+			title="Slovenian labels"
+			class="switch"
+			v-bind:class="{down: selection.slovenian}"
+			style="bottom: 30%"
+			v-on:click="selection.slovenian = !selection.slovenian"
+		>
+			<label>${["English", "Slovenian"][+selection.slovenian]}</label>
+			<span class="flip"></span>
+			<span class="top">en</span>
+			<span class="bottom">sl</span>
 		</div>
 		<div
 			title="Use Haikyu skin"

@@ -9,6 +9,14 @@ let colors = {
 
 const TIME_DELAY = 2000;
 
+const translatePositions = {
+	L: "L",
+	M: "C",
+	R: "K",
+	S: "P",
+	O: "S",
+};
+
 let homePositions = [
 	[0.85, 0.8],
 	[0.85, 0.1],
@@ -152,10 +160,10 @@ class Rotation {
 }
 
 function chooseRandom(choices, banned) {
-  	let result;
-  	do {
+	let result;
+	do {
 		result = choices[Math.floor(Math.random() * choices.length)];
-  	} while (banned.includes(result));
+	} while (banned.includes(result));
 	return result;
 }
 
@@ -184,6 +192,7 @@ var app = new Vue({
 			libero: true,
 			serve: true,
 			haikyu: false,
+			slovenian: false,
 			gameState: "home",
 		},
 		trackPlayer: null,
@@ -481,6 +490,9 @@ var app = new Vue({
 				}
 				players[i].img = players[i].name + players[i].imgCount;
 				players[i].color = colors[players[i].name];
+				if (this.selection.slovenian && translatePositions[players[i].name]) {
+					players[i].name = translatePositions[players[i].name];
+				}
 			}
 			return players;
 		},
