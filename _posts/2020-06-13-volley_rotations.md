@@ -105,7 +105,7 @@ not be playing when it's middle blocker's turn to serve.
 	<!-- Rotation title -->
 	<h2> Rotation ${+selection.rotation+1} - ${thisStateName} </h2>
 	<!-- Button to go to next game state -->
-	<a class="button next" v-on:click.stop.prevent="setNextState"> Show ${ nextStateName } </a>
+	<button class="button next" v-on:click.stop.prevent="setNextState"> Show ${ nextStateName } </button>
 	</div>
 	<div id="court">
 		<div class="lecture">This is what it is and you can't deal with it</div>
@@ -356,6 +356,8 @@ not be playing when it's middle blocker's turn to serve.
 		border-right: 30px solid #eee;
 		padding-left: 5px;
 		z-index: 15;
+		width: 100%;
+		box-sizing: border-box;
 	}
 	.next.button:after {
 		content: "";

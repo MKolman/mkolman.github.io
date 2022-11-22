@@ -81,7 +81,7 @@ Wow, it's TOO BIG. I made the picture smaller. <a href="#image-at-0-the-speed-of
 	<div style="--left: 100%;">50%</div>
 </div>
 <canvas id="canvas" width="740" height="497" style="max-width: 100%; margin: auto; display: block;"></canvas>
-<a onclick="downloadCanvas();" download="download" id="download">Download as png</a>
+<a href="#" onclick="downloadCanvas();" download="download" id="download">Download as png</a>
 
 _*This is probably not how this scene would look like in real life going <span
 class="velocityLabel">0</span>% the speed of light. But it is how this image
