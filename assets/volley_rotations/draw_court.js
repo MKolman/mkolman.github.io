@@ -68,7 +68,7 @@ class Rotation {
 			let rotationPositions = [];
 			for (let rotation = 0; rotation < 6; rotation++) {
 				let hp = homePositions[this.getPlayerPosition(player, rotation)];
-				let pos = {home: hp, serve: hp, receive: hp, attack: hp, defend: hp, firstAttack: hp};
+				let pos = { home: hp, serve: hp, receive: hp, attack: hp, defend: hp, firstAttack: hp };
 				rotationPositions.push(pos);
 			}
 			this.playerPositions.push(rotationPositions);
@@ -100,7 +100,7 @@ class Rotation {
 				if (name == "O") this.blockers[rotation][0] = player;
 				else if (name == "M") this.blockers[rotation][1] = player;
 				else if (name == "S" || name == "R") this.blockers[rotation][2] = player;
-				else this.blockers[rotation][2-i] = player; // Unnamed players don't have a set position
+				else this.blockers[rotation][2 - i] = player; // Unnamed players don't have a set position
 			}
 		}
 	}
@@ -173,7 +173,7 @@ function copy(obj) {
 function updateObject(initial, update) {
 	let result = copy(initial);
 	for (let prop in update) {
-		if(typeof initial[prop] === 'object' && typeof update[prop] === 'object') {
+		if (typeof initial[prop] === 'object' && typeof update[prop] === 'object') {
 			result[prop] = updateObject(result[prop], update[prop]);
 		} else {
 			result[prop] = copy(update[prop]);
@@ -199,25 +199,25 @@ var app = new Vue({
 		allRotations: [],
 		allGameStates: ["home", "serve", "receive", "defend", "attack", "firstAttack"],
 		players: [
-			{x: 0, y: 0, name: "", imgCount: 0}, {x: 0, y: 0, name: "", imgCount: 0},
-			{x: 0, y: 0, name: "", imgCount: 0}, {x: 0, y: 0, name: "", imgCount: 0},
-			{x: 0, y: 0, name: "", imgCount: 0}, {x: 0, y: 0, name: "", imgCount: 0},
+			{ x: 0, y: 0, name: "", imgCount: 0 }, { x: 0, y: 0, name: "", imgCount: 0 },
+			{ x: 0, y: 0, name: "", imgCount: 0 }, { x: 0, y: 0, name: "", imgCount: 0 },
+			{ x: 0, y: 0, name: "", imgCount: 0 }, { x: 0, y: 0, name: "", imgCount: 0 },
 		],
-		ball: {x: -0.12, y: -0.05, img: "B", name: "B"},
+		ball: { x: -0.12, y: -0.05, img: "B", name: "B" },
 		attackerReceiverId: 0,
 		gameStatesFlow: {
 			serve: [
-				{id: "home", name: "start"},
-				{id: "serve", name: "serve"},
-				{id: "defend", name: "defend"},
-				{id: "attack", name: "attack"},
+				{ id: "home", name: "start" },
+				{ id: "serve", name: "serve" },
+				{ id: "defend", name: "defend" },
+				{ id: "attack", name: "attack" },
 			],
 			receive: [
 				// {id: "home", name: "start"},
-				{id: "receive", name: "receive"},
-				{id: "firstAttack", name: "attack"},
-				{id: "defend", name: "defend"},
-				{id: "attack", name: "attack"},
+				{ id: "receive", name: "receive" },
+				{ id: "firstAttack", name: "attack" },
+				{ id: "defend", name: "defend" },
+				{ id: "attack", name: "attack" },
 			],
 		},
 	},
@@ -266,29 +266,29 @@ var app = new Vue({
 				return [];
 			}
 			let allLimits = {
-				0: {top: 1, left: 5},
-				1: {bottom: 0, left: 2},
-				2: {bottom: 5, left: 3, right: 1},
-				3: {bottom: 4, right: 2},
-				4: {top: 3, right: 5},
-				5: {top: 2, left: 4, right: 0},
+				0: { top: 1, left: 5 },
+				1: { bottom: 0, left: 2 },
+				2: { bottom: 5, left: 3, right: 1 },
+				3: { bottom: 4, right: 2 },
+				4: { top: 3, right: 5 },
+				5: { top: 2, left: 4, right: 0 },
 			};
 			this.trackPlayer = +this.trackPlayer;
 			let posId = this.getPosition(this.trackPlayer);
 			let player = this.players[this.trackPlayer];
 			let limits = allLimits[posId];
 			let lines = [], linesExtra = [];
-			let START = -7.5/65, END = 1+7.5/65;
+			let START = -7.5 / 65, END = 1 + 7.5 / 65;
 			let isServe = this.selection.gameState === "serve";
 			if (isServe && posId == 0) {
 				lines = [
-					{primary: true, top: END, bottom: player.y, left: player.x, right: player.x},
-					{primary: true, top: player.y, bottom: player.y, left: player.x, right: END},
-					{primary: true, top: player.y, bottom: player.y, left: START, right: player.x},
+					{ primary: true, top: END, bottom: player.y, left: player.x, right: player.x },
+					{ primary: true, top: player.y, bottom: player.y, left: player.x, right: END },
+					{ primary: true, top: player.y, bottom: player.y, left: START, right: player.x },
 				];
 			} else {
 				for (let key of ["top", "bottom", "left", "right"]) {
-					let line = {top: player.y, bottom: player.y, left: player.x, right: player.x, primary: true};
+					let line = { top: player.y, bottom: player.y, left: player.x, right: player.x, primary: true };
 					if (limits[key] === undefined || (isServe && limits[key] == 0)) {
 						if (key == "top" || key == "left") line[key] = START;
 						else line[key] = END;
@@ -296,14 +296,18 @@ var app = new Vue({
 						let other = this.players[this.getIndex(limits[key])];
 						if (key == "left" || key == "right") {
 							line[key] = other.x;
-							linesExtra.push({left: other.x, right: other.x,
+							linesExtra.push({
+								left: other.x, right: other.x,
 								top: Math.min(other.y, player.y) - 0.05,
-								bottom: Math.max(other.y, player.y) + 0.05 });
+								bottom: Math.max(other.y, player.y) + 0.05
+							});
 						} else {
 							line[key] = other.y;
-							linesExtra.push({top: other.y, bottom: other.y,
+							linesExtra.push({
+								top: other.y, bottom: other.y,
 								left: Math.min(other.x, player.x) - 0.05,
-								right: Math.max(other.x, player.x) + 0.05 });
+								right: Math.max(other.x, player.x) + 0.05
+							});
 						}
 					}
 					lines.push(line);
@@ -346,7 +350,7 @@ var app = new Vue({
 	created() {
 		let self = this;
 		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.onreadystatechange = function() {
+		xmlhttp.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
 				self.allRotations = JSON.parse(this.responseText);
 				self.setPlayerNames();
@@ -366,7 +370,7 @@ var app = new Vue({
 			return this.currentRotation.playerPositions[playerId][+this.selection.rotation][this.selection.gameState];
 		},
 		getDelayedPlayerPos(playerId) {
-			return this.currentRotation.playerPositions[playerId][+this.selection.rotation][this.selection.gameState+"_delayed"];
+			return this.currentRotation.playerPositions[playerId][+this.selection.rotation][this.selection.gameState + "_delayed"];
 		},
 		isBackRow(playerId) {
 			return [4, 5, 0].includes(this.getPosition(playerId));
@@ -381,20 +385,20 @@ var app = new Vue({
 				let cnt = imgCounter[name] || 0;
 				this.players[i].name = name;
 				this.players[i].imgCount = cnt;
-				imgCounter[name] = cnt+1;
+				imgCounter[name] = cnt + 1;
 			}
 		},
 		updatePlayers() {
 			if (this.selection.gameState == "firstAttack") {
-				this.attackerReceiverId =  chooseRandom(this.playerRoles.first_attackers, [null, this.playerRoles.setter]);
+				this.attackerReceiverId = chooseRandom(this.playerRoles.first_attackers, [null, this.playerRoles.setter]);
 			} else if (this.selection.gameState == "attack") {
-				this.attackerReceiverId =  chooseRandom(this.playerRoles.attackers, [null, this.playerRoles.setter]);
+				this.attackerReceiverId = chooseRandom(this.playerRoles.attackers, [null, this.playerRoles.setter]);
 			} else if (this.selection.gameState == "defend") {
-				this.attackerReceiverId =  chooseRandom(this.playerRoles.passers, [null, this.playerRoles.setter]);
+				this.attackerReceiverId = chooseRandom(this.playerRoles.passers, [null, this.playerRoles.setter]);
 			} else if (this.selection.gameState == "receive") {
-				this.attackerReceiverId =  chooseRandom(this.playerRoles.receivers, [null, this.playerRoles.setter]);
+				this.attackerReceiverId = chooseRandom(this.playerRoles.receivers, [null, this.playerRoles.setter]);
 			}
-			let x=0, y=0;
+			let x = 0, y = 0;
 			for (let playerId = 0; playerId < 6; playerId++) {
 				let name = this.currentRotation.players[playerId];
 				let posId = this.getPosition(playerId);
@@ -415,7 +419,7 @@ var app = new Vue({
 					this.moveObj(this.ball, -0.12, -0.05);
 				} else if (this.selection.gameState == "serve") {
 					this.moveObj(this.ball, 1, 1.23);
-					this.moveObj(this.ball, 0.5, -0.2, TIME_DELAY+500);
+					this.moveObj(this.ball, 0.5, -0.2, TIME_DELAY + 500);
 				} else if (this.selection.gameState == "receive") {
 					this.moveObj(this.ball, 0.2, -0.2);
 				} else if (this.selection.gameState == "defend") {
@@ -432,17 +436,17 @@ var app = new Vue({
 			} else if (this.selection.gameState == "defend" && myBall) {
 				this.moveObj(this.ball, x, y, TIME_DELAY);
 			} else if (this.selection.gameState.endsWith("ttack")) {
-				let attackers = this.selection.gameState == "attack"?this.playerRoles.attackers:this.playerRoles.first_attackers;
+				let attackers = this.selection.gameState == "attack" ? this.playerRoles.attackers : this.playerRoles.first_attackers;
 				let spikeX = [0, 0.5, 1][attackers.indexOf(this.attackerReceiverId)];
 				if (myBall) {
-					this.moveObj(this.ball, spikeX, 0, TIME_DELAY+10);
-					this.moveObj(this.ball, (spikeX+0.4)%1, -0.2, TIME_DELAY*1.8);
+					this.moveObj(this.ball, spikeX, 0, TIME_DELAY + 10);
+					this.moveObj(this.ball, (spikeX + 0.4) % 1, -0.2, TIME_DELAY * 1.8);
 				}
 			}
 		},
 		moveObj(obj, x, y, timeout) {
 			if (timeout) {
-				setTimeout(() => {this.moveObj(obj, x, y)}, timeout);
+				setTimeout(() => { this.moveObj(obj, x, y) }, timeout);
 			} else {
 				obj.x = x;
 				obj.y = y;
@@ -450,21 +454,21 @@ var app = new Vue({
 		},
 		coorToCourt(x, y) {
 			// Court padding in %
-			let courtLeft = 10,  courtTop = 4, courtSize = 80, playerDiameter = 15;
+			let courtLeft = 10, courtTop = 4, courtSize = 80, playerDiameter = 15;
 			result = {
 				left: (courtLeft + (courtSize - playerDiameter) * x),
 				top: (courtTop + (courtSize - playerDiameter) * y),
 			};
 			result.right = 100 - result.left - playerDiameter;
 			result.bottom = 100 - result.top - playerDiameter;
-			result.centerLeft = result.left + playerDiameter/2;
-			result.centerTop = result.top + playerDiameter/2;
+			result.centerLeft = result.left + playerDiameter / 2;
+			result.centerTop = result.top + playerDiameter / 2;
 			return result;
 		},
 		getStyle(player) {
 			let result = {};
-			if (this.selection.haikyu || player.name == "B"){
-				result.backgroundImage = "url(/assets/volley_rotations/team/"+player.img+".png)";
+			if (this.selection.haikyu || player.name == "B") {
+				result.backgroundImage = "url(/assets/volley_rotations/team/" + player.img + ".png)";
 			} else {
 				result.backgroundColor = player.color;
 			}
@@ -474,12 +478,12 @@ var app = new Vue({
 			return result;
 		},
 		getPosition(id) {
-			return (id+6-this.selection.rotation) % 6;
+			return (id + 6 - this.selection.rotation) % 6;
 		},
 		getIndex(position) {
-			return (+this.selection.rotation+position) % 6;
+			return (+this.selection.rotation + position) % 6;
 		},
-		getDisplayPlayers()  {
+		getDisplayPlayers() {
 			let players = copy(this.players);
 			for (let i = 0; i < 6; i++) {
 				let posId = this.getPosition(i);
